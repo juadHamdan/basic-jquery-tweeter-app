@@ -50,11 +50,26 @@ body{
     width: 100%;
     height: 100%;
 }
-.trending-container > .posts{
+.trending-posts{
     background-color: #525252;
-    width: 90%;
+    width: 95%;
     border-radius: 20px;
 }
+
+.trending-posts > .post{
+    padding-top: 5px;
+}
+.trending-posts .close-btn{
+    display: none;
+}
+
+.searched-posts > .post{
+    padding-top: 5px;
+}
+.searched-posts .close-btn{
+    display: none;
+}
+
 
 .posts-container{
     padding: 10px 10% 10px 10%;

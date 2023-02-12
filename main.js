@@ -1,21 +1,25 @@
 const tweeter = Tweeter()
 const renderer = Renderer()
 
+const postsObject = $(".posts")
+const trendingPostsObject = $(".trending-posts")
+const searchedPostsObject = $(".searched-posts")
+
 renderPosts()
 
 function renderPosts(){
-    renderer.renderPosts(tweeter.getPosts(), ".posts")
-    renderer.renderPosts(tweeter.getTrendingPosts(), ".trending-posts")
+    renderer.renderPosts(tweeter.getPosts(), postsObject)
+    renderer.renderPosts(tweeter.getTrendingPosts(), trendingPostsObject)
 }
 
+const addPostAlertObject = $(".post-form .alert")
 const addPost = function(event){
     event.preventDefault()
     const postText = event.target[0].value
-    const alertSelectors = ".post-form .alert"
 
-    $(alertSelectors).empty();
+    addPostAlertObject.empty();
     if(!postText){
-        $(alertSelectors).text("Please enter tweet.")
+        addPostAlertObject.text("Please enter tweet.")
         return
     }
 
@@ -40,19 +44,19 @@ const addComment = function(event){
     renderPosts()
 }
 
+const searchPostAlertObject = $(".search-posts-form .alert")
 const displaySearchedPosts = (event) => {
     event.preventDefault()
     const searchText = event.target[0].value
-    const alertSelector = ".search-posts-form .alert"
 
-    $(alertSelector).css('visibility', 'hidden')
+    searchPostAlertObject.css('visibility', 'hidden')
     if(!searchText){
-        $(alertSelector).text("Please enter text.")
-        $(alertSelector).css('visibility', 'visible')
+        searchPostAlertObject.text("Please enter text.")
+        searchPostAlertObject.css('visibility', 'visible')
         return
     }
 
-    renderer.renderPosts(tweeter.getSearchedPosts(searchText), ".searched-posts")
+    renderer.renderPosts(tweeter.getSearchedPosts(searchText), searchedPostsObject)
 }
 
 const deletePost = function(event){

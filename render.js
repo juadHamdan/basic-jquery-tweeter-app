@@ -1,6 +1,6 @@
 const Renderer = function(){
-    const renderPosts = function(posts, selector){
-        $(selector).empty();
+    const renderPosts = function(posts, jQueryObject){
+        jQueryObject.empty();
 
         for(let post of posts){
             let commentsDivs = ""
@@ -54,7 +54,7 @@ const Renderer = function(){
                     <hr/>
                 </div>`)
     
-            $(selector).append(postElement)
+            jQueryObject.append(postElement)
         }
     }
 
