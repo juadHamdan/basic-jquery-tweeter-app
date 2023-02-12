@@ -24,6 +24,7 @@ const addPost = function(event){
     }
 
     tweeter.addPost(postText)
+    event.target[0].value = ""
     renderPosts()
 }
 
@@ -56,6 +57,7 @@ const displaySearchedPosts = (event) => {
         return
     }
 
+    event.target[0].value = ""
     renderer.renderPosts(tweeter.getSearchedPosts(searchText), searchedPostsObject)
 }
 

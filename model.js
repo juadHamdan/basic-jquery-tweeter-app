@@ -1,7 +1,6 @@
 const Tweeter = function(){
     let postIdCounter = _posts.length
     let commentIdCounter = _posts.reduce((accumulator, post) => accumulator + post.comments.length, 0)
-    console.log(commentIdCounter)
 
     let _currentPostsIDNum = postIdCounter
     let _currentCommentsIDNum = commentIdCounter
@@ -55,7 +54,6 @@ const Tweeter = function(){
 
     const addComment  = function(commentText, postID){
         const commentID = `c${_currentCommentsIDNum + 1}`
-        console.log(commentID)
         _currentCommentsIDNum += 1;
 
         let newComment = {
