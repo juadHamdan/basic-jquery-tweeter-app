@@ -1,11 +1,11 @@
 const Tweeter = function(){
     const _MIN_LIKES_FOR_TRENDING = 10
     let _numOfPosts = _posts.length
-    let _numOfComments = getNumOfComments()
+    let _numOfComments = _getNumOfComments()
     let _currentPostsIDNum = _numOfPosts
     let _currentCommentsIDNum = _numOfComments
 
-    function getNumOfComments(){
+    function _getNumOfComments(){
         let numOfComments = 0
         _posts.forEach(post => numOfComments += post.comments.length)
 
@@ -16,26 +16,31 @@ const Tweeter = function(){
         return arr.findIndex(obj => obj.id === id)
     }
 
-    const getPosts = function(){
-        return _posts
-    }
-
-    const getPost = function(postID){
+    const _getPost = function(postID){
         return _posts[_findIndexByID(_posts, postID)]
     }
 
-    const getComments = function(postID){
+    const _getComments = function(postID){
         return _posts[_findIndexByID(_posts, postID)].comments
     }
 
-    const getComment = function(postID, commentID){
-        const comments = getComments(postID)
+    const _getComment = function(postID, commentID){
+        const comments = _getComments(postID)
 
         return comments[_findIndexByID(comments, commentID)]
     }
 
+    const getPosts = function(){
+        return _posts
+    }
+    
     const getTrendingPosts = function(){
         return _posts.filter(post => post.likes >= _MIN_LIKES_FOR_TRENDING)
+    }
+
+    const getSearchedPosts = function(searchText){
+        return _posts.filter(post => 
+            post.text.toLowerCase().includes(searchText.toLowerCase()))
     }
 
     const addPost = function(postText){
@@ -68,54 +73,48 @@ const Tweeter = function(){
             isLiked: false,
             likes: 0
         }
-        getComments(postID).push(newComment)
+        _getComments(postID).push(newComment)
         _numOfComments += 1
     }
 
     const removeComment = function(postID, commentID){
-        getComments(postID).splice(_findIndexByID(getComments(postID), commentID), 1)
+        _getComments(postID).splice(_findIndexByID(_getComments(postID), commentID), 1)
         _numOfComments -= 1
     }
 
-    const getSearchedPosts = function(searchText){
-        return _posts.filter(post => 
-            post.text.toLowerCase().includes(searchText.toLowerCase()))
-    }
-
     const getPostIsLiked = function(postID){
-        return getPost(postID).isLiked
+        return _getPost(postID).isLiked
     }
 
     const setPostIsLiked = function(postID, isLiked){
-        getPost(postID).isLiked = isLiked
+        _getPost(postID).isLiked = isLiked
     }
 
     const getCommentIsLiked = function(postID, commentID){
-        return getComment(postID, commentID).isLiked
+        return _getComment(postID, commentID).isLiked
     }
 
     const setCommentIsLiked = function(postID, commentID, isLiked){
-        getComment(postID, commentID).isLiked = isLiked
+        _getComment(postID, commentID).isLiked = isLiked
     }
 
     const addPostLike = function(postID){
-        getPost(postID).likes += 1
+        _getPost(postID).likes += 1
     }
 
     const removePostLike = function(postID){
-        getPost(postID).likes -= 1
+        _getPost(postID).likes -= 1
     }
 
     const addCommentLike = function(postID, commentID){
-        getComment(postID, commentID).likes += 1
+        _getComment(postID, commentID).likes += 1
     }
 
     const removeCommentLike = function(postID, commentID){
-        getComment(postID, commentID).likes -= 1
+        _getComment(postID, commentID).likes -= 1
     }
 
     return {
-        getPost,
         getPosts,
         getSearchedPosts,
         getTrendingPosts,
