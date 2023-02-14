@@ -1,10 +1,16 @@
 const Tweeter = function(){
-    let postIdCounter = _posts.length
-    let commentIdCounter = _posts.reduce((accumulator, post) => accumulator + post.comments.length, 0)
+    const _MIN_LIKES_FOR_TRENDING = 10
+    let _numOfPosts = _posts.length
+    let _numOfComments = getNumOfComments()
+    let _currentPostsIDNum = _numOfPosts
+    let _currentCommentsIDNum = _numOfComments
 
-    let _currentPostsIDNum = postIdCounter
-    let _currentCommentsIDNum = commentIdCounter
-    const minNumOfLikesForTrending = 10
+    function getNumOfComments(){
+        let numOfComments = 0
+        _posts.forEach(post => numOfComments += post.comments.length)
+
+        return numOfComments
+    }
 
     const _findIndexByID = function(arr, id){
         return arr.findIndex(obj => obj.id === id)
@@ -29,7 +35,7 @@ const Tweeter = function(){
     }
 
     const getTrendingPosts = function(){
-        return _posts.filter(post => post.likes >= minNumOfLikesForTrending)
+        return _posts.filter(post => post.likes >= _MIN_LIKES_FOR_TRENDING)
     }
 
     const addPost = function(postText){
@@ -44,12 +50,12 @@ const Tweeter = function(){
             comments: []
         }
         _posts.push(newPost)
-        postIdCounter += 1
+        _numOfPosts += 1
     }
 
     const removePost = function(postID){
         _posts.splice(_findIndexByID(_posts, postID), 1)
-        postIdCounter -= 1
+        _numOfPosts -= 1
     }
 
     const addComment  = function(commentText, postID){
@@ -63,12 +69,12 @@ const Tweeter = function(){
             likes: 0
         }
         getComments(postID).push(newComment)
-        commentIdCounter += 1
+        _numOfComments += 1
     }
 
     const removeComment = function(postID, commentID){
         getComments(postID).splice(_findIndexByID(getComments(postID), commentID), 1)
-        commentIdCounter -= 1
+        _numOfComments -= 1
     }
 
     const getSearchedPosts = function(searchText){
@@ -109,8 +115,6 @@ const Tweeter = function(){
     }
 
     return {
-        numOfPosts: postIdCounter,
-        numOfComments: commentIdCounter,
         getPost,
         getPosts,
         getSearchedPosts,
