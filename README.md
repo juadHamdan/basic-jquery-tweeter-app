@@ -1,4 +1,6 @@
-﻿# basic-jquery-tweeter-app
+﻿# Basic jQuery Tweeter App
+
+### Features: tweet, like, comment, deletion, search
 
 Demo: https://juadhamdan.github.io/basic-jquery-tweeter-app/
 
