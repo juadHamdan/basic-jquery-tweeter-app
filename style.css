@@ -357,6 +357,7 @@ body{
         display:flex;
         flex-direction: column;
     }
+    
     .posts{
         width: 90%;
     }
