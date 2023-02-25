@@ -48,7 +48,6 @@ body{
     flex-direction: column;
     background-color: rgba(0, 0, 0, 0.2);
     width: 100%;
-    height: 100%;
 }
 .trending-posts{
     background-color: #525252;
@@ -350,4 +349,35 @@ body{
 
 .comment-form > .btn{
     background-color: var(--comments-theme-color);
+}
+
+
+@media (max-width:900px){
+    .home-page-container{
+        display:flex;
+        flex-direction: column;
+    }
+    .posts{
+        width: 90%;
+    }
+    .post-form{
+        padding-top: 0 10% 10% 10%;
+    }
+    .trending-posts{
+        width: 80%;
+    }
+    .search-posts-form{
+        padding: 30px 10px 10px 10px;
+    }
+}
+@media (max-width:650px){
+    .posts-container{
+        padding: 0;
+    }
+    .posts{
+        width: 90%;
+    }
+    .trending-posts{
+        width: 80%;
+    }
 }
